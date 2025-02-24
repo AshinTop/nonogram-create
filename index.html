@@ -38,11 +38,24 @@
       <div class="container">
         <canvas id="thumbnail" class="thumbnail"></canvas>
         <div class="nonogram-container" id="nonogramContainer"></div>
+        <div class="mask" id="mask">
+          <img id="mask_img" src="" alt="" style="width: 140px; height: 140px" />
+          <button id="startGame">Start Game</button>
+        </div>
+      </div>
+      <div class="action-area" id="actions">
+        <button id="undoButton">Undo</button>
+        <button id="clearButton">Clear</button>
+        <button id="showAnswer">Show Answer</button>
+      </div>
+      <div class="result-message" id="messages">
+        <div class="success-message" id="successMessage"></div>
       </div>
       <div class="upload-container">
         <div class="controls">
           <input type="file" id="imageInput" accept="image/*" />
         </div>
+
         <div class="drop-zone" id="dropZone">
           <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#fff">
             <path d="M0 0h24v24H0V0z" fill="none" />

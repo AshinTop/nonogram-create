@@ -1,18 +1,22 @@
 const SIZE = 30
 const THRESHOLD = 128
 let currentGrid = []
+let solutionGrid = []
+let history = []
 
 const dropZone = document.getElementById('dropZone')
 const imageInput = document.getElementById('imageInput')
 const previewImage = document.getElementById('previewImage')
 const hintText = document.getElementById('hintText')
 const dropZoneNezha = document.getElementById('dropZoneNezha')
+const buttonArea = document.getElementById('actions')
+const maskArea = document.getElementById('mask')
 
 dropZoneNezha.addEventListener('click', (e) => {
   const img = new Image()
   img.crossOrigin = 'anonymous' // 关键设置
-  img.onload = function () {
-    processImage(img)
+  img.onload = function (data) {
+    processImage(img, data)
   }
   img.onerror = function () {
     console.error('图片加载失败，请检查CORS配置')
@@ -29,15 +33,46 @@ imageInput.addEventListener('change', function (e) {
 
   reader.onload = function (event) {
     const img = new Image()
-    img.onload = function () {
-      processImage(img)
+    img.onload = function (data) {
+      processImage(img, data)
     }
     img.src = event.target.result
   }
   reader.readAsDataURL(file)
 })
 
-function processImage(img) {
+function clearGame() {
+  // 重置当前网格
+  currentGrid = Array.from({ length: SIZE }, () => Array(SIZE).fill(0))
+  // 清空历史记录
+  history = []
+  // 清除所有格子样式
+  document.querySelectorAll('.cell').forEach((cell) => {
+    cell.classList.remove('filled')
+  })
+  // 更新缩略图
+  updateThumbnail()
+  // 重置提示颜色
+  checkAllRowsAndColumns()
+
+  checkCompletion()
+}
+
+function startGame() {
+  clearGame()
+  maskArea.style.display = 'none'
+  buttonArea.classList.toggle('show')
+}
+
+document.getElementById('clearButton').addEventListener('click', () => {
+  clearGame()
+})
+
+document.getElementById('startGame').addEventListener('click', () => {
+  startGame()
+})
+
+function processImage(img, data) {
   const canvas = document.getElementById('preview')
   const ctx = canvas.getContext('2d')
 
@@ -58,7 +93,11 @@ function processImage(img) {
     grid.push(row)
   }
 
-  generateNonogram(grid)
+  solutionGrid = JSON.parse(JSON.stringify(grid))
+  currentGrid = Array.from({ length: SIZE }, () => Array(SIZE).fill(0))
+  generateNonogram(solutionGrid)
+  maskArea.style.display = 'flex'
+  document.getElementById('mask_img').src = data.srcElement.currentSrc
 }
 
 function generateNonogram(grid) {
@@ -80,6 +119,7 @@ function generateNonogram(grid) {
   colClues.forEach((clue, x) => {
     const div = document.createElement('div')
     div.className = 'number'
+    div.dataset.col = x // 添加data-col属性
     div.innerHTML = clue.map((n) => `<span>${n}</span>`).join('')
     if (x > 0) div.style.borderLeft = '1px solid transparent'
     colNumbers.appendChild(div)
@@ -98,6 +138,7 @@ function generateNonogram(grid) {
   grid.forEach((row, y) => {
     const div = document.createElement('div')
     div.className = 'number'
+    div.dataset.row = y // 添加data-row属性
     div.textContent = rowClues[y].join(' ')
     rowNumbers.appendChild(div)
   })
@@ -110,9 +151,12 @@ function generateNonogram(grid) {
       cellDiv.className = 'cell'
       if (cell) cellDiv.classList.add('filled')
       cellDiv.addEventListener('click', () => {
+        history.push(JSON.stringify(currentGrid))
         cellDiv.classList.toggle('filled')
         currentGrid[y][x] = cellDiv.classList.contains('filled') ? 1 : 0
         updateThumbnail()
+        checkRowAndColumn(y, x)
+        checkCompletion()
       })
       gridDiv.appendChild(cellDiv)
     })
@@ -120,6 +164,59 @@ function generateNonogram(grid) {
 
   container.appendChild(gridDiv)
   updateThumbnail()
+}
+
+// 新增功能函数
+function checkRowAndColumn(y, x) {
+  // 检查行
+  const rowClue = getClue(currentGrid[y])
+  const solutionRowClue = getClue(solutionGrid[y])
+  document.querySelector(`[data-row="${y}"]`).classList.toggle('completed', JSON.stringify(rowClue) === JSON.stringify(solutionRowClue))
+
+  // 检查列
+  const col = currentGrid.map((r) => r[x])
+  const colClue = getClue(col)
+  const solutionCol = solutionGrid.map((r) => r[x])
+  document.querySelector(`[data-col="${x}"]`).classList.toggle('completed', JSON.stringify(colClue) === JSON.stringify(getClue(solutionCol)))
+}
+
+// Undo 功能
+document.getElementById('undoButton').addEventListener('click', () => {
+  if (history.length === 0) return
+  currentGrid = JSON.parse(history.pop())
+  document.querySelectorAll('.cell').forEach((cell, i) => {
+    const y = Math.floor(i / SIZE),
+      x = i % SIZE
+    cell.classList.toggle('filled', currentGrid[y][x])
+  })
+  updateThumbnail()
+  checkAllRowsAndColumns()
+})
+
+// 查看答案
+document.getElementById('showAnswer').addEventListener('click', () => {
+  currentGrid = JSON.parse(JSON.stringify(solutionGrid))
+  document.querySelectorAll('.cell').forEach((cell, i) => {
+    cell.classList.toggle('filled', currentGrid[Math.floor(i / SIZE)][i % SIZE])
+  })
+  updateThumbnail()
+  checkAllRowsAndColumns()
+  checkCompletion()
+})
+
+// 其他辅助函数
+function checkAllRowsAndColumns() {
+  for (let y = 0; y < SIZE; y++) checkRowAndColumn(y, 0)
+  for (let x = 0; x < SIZE; x++) checkRowAndColumn(0, x)
+}
+
+function checkCompletion() {
+  const isSolved = currentGrid.every((row, y) => row.every((cell, x) => cell === solutionGrid[y][x]))
+  if (isSolved) {
+    document.getElementById('successMessage').innerText = 'Congratulations! The puzzle was solved correctly!'
+  } else {
+    document.getElementById('successMessage').innerText = ''
+  }
 }
 
 function getClue(arr) {
