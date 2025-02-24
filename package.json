@@ -1,0 +1,16 @@
+{
+  "name": "nonogram-create",
+  "version": "1.0.0",
+  "description": "Upload the picture to generate the nonogram game you want. 上传图片生成数织游戏。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nonogram",
+    "number",
+    "gane"
+  ],
+  "author": "AshinTop",
+  "license": "ISC"
+}

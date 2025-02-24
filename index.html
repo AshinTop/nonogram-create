@@ -1,0 +1,97 @@
+<!DOCTYPE html lang="en">
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>🎨 Nonogram Online: Image to Number Puzzle Tool</title>
+    <meta
+      name="description"
+      content="Play online Nonograms puzzle game. Convert pictures into interactive math puzzles online for free! Supports real-time editing preview, automatic clue generation, mobile adaptation, and immediate use without registration. Quickly turn photos into fun logic games!"
+    />
+    <meta name="keywords" content="nonograms,nonogram,tool,puzzle,game,nonogram generator,image to nonogram" />
+    <meta property="og:title" content="Nonogram Online: Image to Number Puzzle Tool" />
+    <meta property="og:image" content="https://s3.numkid.com/demo-result.png" />
+    <meta
+      property="og:description"
+      content="Play online Nonograms puzzle game. Convert pictures into interactive math puzzles online for free! Supports real-time editing preview, automatic clue generation, mobile adaptation, and immediate use without registration. Quickly turn photos into fun logic games!"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Nonogram Online: Image to Number Puzzle Tool",
+        "description": "Free tool to convert images into interactive math puzzles",
+        "applicationCategory": "Game",
+        "operatingSystem": "Web",
+        "browserRequirements": "JavaScript",
+        "screenshot": "https://s3.numkid.com/demo-result.png",
+        "offers": {
+          "@type": "Offer",
+          "price": "0"
+        }
+      }
+    </script>
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="container">
+        <canvas id="thumbnail" class="thumbnail"></canvas>
+        <div class="nonogram-container" id="nonogramContainer"></div>
+      </div>
+      <div class="upload-container">
+        <div class="controls">
+          <input type="file" id="imageInput" accept="image/*" />
+        </div>
+        <div class="drop-zone" id="dropZone">
+          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#fff">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path
+              d="M18 20H4V6h9V4H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9h-2v9zm-7.79-3.17l-1.96-2.36L5.5 18h11l-3.54-4.71zM20 4V1h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V6h3V4h-3z"
+            />
+          </svg>
+          <p>Create New</p>
+        </div>
+        <div class="drop-zone drop-img" id="dropZoneNezha">
+          <img src="https://s3.numkid.com/demo.jpeg" alt="哪吒" title="demo:哪吒" />
+        </div>
+      </div>
+      <canvas id="preview"></canvas>
+      <article class="article-area">
+        <h1>🎨 Nonogram Online: Online Image Transformation Generator</h1>
+        <h2>How to play Nonogram</h2>
+        <p>It only takes 3 steps to turn any image into a professional level puzzle:</p>
+        <p>① Upload the image</p>
+        <p>② Automatically generate the grid</p>
+        <p>③ Start solving the puzzle!</p>
+        <p>
+          It supports <strong>real-time editing</strong>, <strong>intelligent clue generation</strong> and <strong>mobile adaptation</strong>, and is
+          the best tool for number weaving enthusiasts and puzzle designers.
+        </p>
+        <h2>FAQs</h2>
+        <h3>What is Nonogram?</h3>
+        <p>Nonogram is a logic puzzle game where you fill in a grid with digital clues...</p>
+        <h3>What image formats are supported?</h3>
+        <p>JPG/PNG formats are supported, and high-contrast images are recommended...</p>
+        <h3>Is there a size limit for uploaded images?</h3>
+        <p>
+          While there's no strict size limit, we recommend using images under 5MB. The tool will automatically resize images to 20x20 pixels for
+          Nonogram conversion.
+        </p>
+        <h3>Can I edit the generated Nonogram?</h3>
+        <p>Yes! Click any cell to toggle between filled/empty states. The row/column clues will update automatically as you make changes.</p>
+        <h3>Is my image data stored?</h3>
+        <p>No. All image processing happens in your browser. We never upload or store your images on our servers.</p>
+        <h3>Why do some complex images not convert well?</h3>
+        <p>
+          Detailed images may lose clarity when reduced to 20x20 grids. For better results, try simplifying images or using vector graphics before
+          conversion.
+        </p>
+        <h3>Can I save/share my Nonogram?</h3>
+        <p>Currently, you can screenshot the grid. We're developing export features for PDF and image formats (coming soon!).</p>
+      </article>
+    </div>
+
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>
