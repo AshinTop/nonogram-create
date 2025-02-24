@@ -17,7 +17,7 @@ dropZoneNezha.addEventListener('click', (e) => {
   img.onerror = function () {
     console.error('图片加载失败，请检查CORS配置')
   }
-  img.src = 'https://s3.numkid.com/demo.jpeg'
+  img.src = 'https://nonograms.numkid.com/assets/images/demo.jpeg'
 })
 
 // 点击拖拽区域触发文件选择

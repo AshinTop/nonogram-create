@@ -4,7 +4,7 @@
 
 ✨ 将任意图片转换为可交互的数织谜题，支持实时编辑与预览！基于纯前端技术实现，无需服务器。
 
-![示例截图](./assets/demo-result.png)
+![示例截图](./assets/images/demo-result.png)
 
 ## 🌟 功能亮点
 

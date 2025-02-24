@@ -4,7 +4,7 @@
 
 ✨ Convert any image into an interactive Nonogram puzzle with real-time editing and preview! Built with pure front-end technology, no server required.
 
-![demo image](./assets/demo-result.png)
+![demo image](./assets/images/demo-result.png)
 
 ## 🌟 Features
 
