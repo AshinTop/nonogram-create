@@ -19,7 +19,7 @@
 
 ### Try Online
 
-Visit [Online Pages](https://yourusername.github.io/picross-generator)
+Visit [Online Pages](https://nonograms.numkid.com/)
 
 ### Run Locally
 
