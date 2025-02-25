@@ -9,6 +9,8 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 30px;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 #preview {
@@ -89,7 +91,7 @@ body {
   padding: 1px 0;
 }
 .controls {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 @media (pointer: coarse) {
